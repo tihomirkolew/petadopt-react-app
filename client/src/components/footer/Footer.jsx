@@ -23,7 +23,7 @@ export default function Footer() {
                     <div className="col-md-7 col-12 px-5 mb-2">
                         © 2025 Pet Adopt Company. All rights reserved.
                     </div>
-                    <div className="col-md-5 col-12 px-5 text-md-end text-start">
+                    <div className="col-md-5 col-12 px-5 text-md-end text-right">
                         Designed by <a href="https://templatemo.com" className="tm-text-gray" rel="sponsored" target="_parent">TemplateMo</a>
                     </div>
                 </div>

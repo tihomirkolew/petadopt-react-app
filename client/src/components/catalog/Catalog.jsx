@@ -5,7 +5,7 @@ export default function Catalog() {
                 {/* Page title */}
                 <div className="row mb-4">
                     <h2 className="col-6 tm-text-primary">
-                        Latest Photos
+                        All Listings
                     </h2>
                 </div>
 

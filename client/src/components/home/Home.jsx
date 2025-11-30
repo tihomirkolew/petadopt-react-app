@@ -2,11 +2,11 @@ export default function Home() {
     return (
         <>
             <div className="container-fluid tm-container-content tm-mt-60"
-                style={{ minHeight: '78vh' }}>
+                style={{ minHeight: '73vh' }}>
                 {/* Page title */}
                 <div className="row mb-4">
                     <h2 className="col-6 tm-text-primary">
-                        Latest Photos
+                        Latest Listings
                     </h2>
                 </div>
 
@@ -17,7 +17,7 @@ export default function Home() {
                     overflowX: "auto",
                     gap: "1rem"
                 }}>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5 zoom-effect">
+                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 mb-5 zoom-effect">
                         <figure className="effect-ming tm-video-item">
                             <img src="/images/img-05.jpg" alt="Image" className="img-fluid" />
                             <figcaption className="d-flex align-items-center justify-content-center">
