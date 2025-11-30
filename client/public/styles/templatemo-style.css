@@ -9,6 +9,14 @@ https://templatemo.com/tm-556-catalog-z
     background-color: #EEEEEE;
 }
 
+.navbar-brand i {
+    margin-top: 5px;
+}
+
+.img-fluid {
+    aspect-ratio: 16/10;
+}
+
 .zoom-effect {
   flex: 0 0 45%;
   max-width: 45%;

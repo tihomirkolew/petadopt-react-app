@@ -1,4 +1,23 @@
+import { useEffect, useState } from "react";
+import PetCard from "../petCard/PetCard";
+
 export default function Home() {
+    const [latestPets, setLatestPets] = useState([]);
+
+    const searchParams = encodeURIComponent('_createdOn desc');
+
+    useEffect(() => {
+        fetch(`http://localhost:3030/data/pets?sortBy=${searchParams}&pageSize=3`)
+        .then(res => res.json())
+        .then(data => {
+            setLatestPets(data);
+        })
+        .catch(err => {
+            console.error('Error fetching latest pets:', err);
+        });
+            
+    }, [searchParams]);
+
     return (
         <>
             <div className="container-fluid tm-container-content tm-mt-60"
@@ -17,45 +36,8 @@ export default function Home() {
                     overflowX: "auto",
                     gap: "1rem"
                 }}>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 mb-5 zoom-effect">
-                        <figure className="effect-ming tm-video-item">
-                            <img src="/images/img-05.jpg" alt="Image" className="img-fluid" />
-                            <figcaption className="d-flex align-items-center justify-content-center">
-                                <h2 className="col-6 tm-text-primary">Clocks</h2>
-                                <a href="photo-detail.html">View more</a>
-                            </figcaption>
-                        </figure>
-                        <div className="d-flex justify-content-between tm-text-gray">
-                            <span className="tm-text-gray-light">18 Oct 2020</span>
-                            {/* <span>9,906 views</span> */}
-                        </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5 zoom-effect">
-                        <figure className="effect-ming tm-video-item">
-                            <img src="/images/img-05.jpg" alt="Image" className="img-fluid" />
-                            <figcaption className="d-flex align-items-center justify-content-center">
-                                <h2 className="col-6 tm-text-primary">Clocks</h2>
-                                <a href="photo-detail.html">View more</a>
-                            </figcaption>
-                        </figure>
-                        <div className="d-flex justify-content-between tm-text-gray">
-                            <span className="tm-text-gray-light">18 Oct 2020</span>
-                            {/* <span>9,906 views</span> */}
-                        </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5 zoom-effect">
-                        <figure className="effect-ming tm-video-item">
-                            <img src="/images/img-05.jpg" alt="Image" className="img-fluid" />
-                            <figcaption className="d-flex align-items-center justify-content-center">
-                                <h2 className="col-6 tm-text-primary">Clocks</h2>
-                                <a href="photo-detail.html">View more</a>
-                            </figcaption>
-                        </figure>
-                        <div className="d-flex justify-content-between tm-text-gray">
-                            <span className="tm-text-gray-light">18 Oct 2020</span>
-                            {/* <span>9,906 views</span> */}
-                        </div>
-                    </div>
+                    
+                {latestPets.map(pet => <PetCard key={pet._id} {...pet} />)}
 
                 </div>
             </div>
