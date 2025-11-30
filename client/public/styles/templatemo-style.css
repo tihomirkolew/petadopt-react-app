@@ -1,27 +1,44 @@
 /*
-    
 TemplateMo 556 Catalog-Z
 
 https://templatemo.com/tm-556-catalog-z
-
 */
 
-/* My styles */
-
+/* My styles - start */
 .navbar {
     background-color: #EEEEEE;
 }
 
-/* figure.item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.zoom-effect {
+  flex: 0 0 45%;
+  max-width: 45%;
+}     
+
+.zoom-effect img {
+  width: 120%;
+  height: auto;
 }
 
-figure.item h2 {
-    text-align: center;
-} */
+.zoom-effect {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .tm-gallery {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-x: unset;
+  }
+
+  .zoom-effect {
+    max-width: 100%;
+    flex: 1 1 auto;
+  }
+
+  .zoom-effect img {
+    width: 100%;
+  }
+}
 
 .row {
     justify-content: space-between;
@@ -34,6 +51,8 @@ figure.item h2 {
 .tm-footer-title {
     line-height: 2;
 }
+
+/* My styles - end */
 
 #loader-wrapper {
     position: fixed;

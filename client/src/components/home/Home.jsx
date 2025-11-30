@@ -1,49 +1,62 @@
 export default function Home() {
     return (
         <>
-            <div class="container-fluid tm-container-content tm-mt-60">
-                {/* Heading */}
-                <div class="row mb-4">
-                    <h2 class="col-6 tm-text-primary">
+            <div className="container-fluid tm-container-content tm-mt-60"
+                style={{ minHeight: '78vh' }}>
+                {/* Page title */}
+                <div className="row mb-4">
+                    <h2 className="col-6 tm-text-primary">
                         Latest Photos
                     </h2>
-                    {/* TODO Pagination check if needed */}
-                    <div class="col-6 d-flex justify-content-end align-items-center">
-                        <form action="" class="tm-text-primary">
-                            Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary" /> of 200
-                        </form>
-                    </div>
                 </div>
 
                 {/* Items */}
-                <div class="row tm-mb-90 tm-gallery">
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <div className="row tm-mb-90 tm-gallery" style={{
+                    display: "flex",
+                    flexWrap: "nowrap",
+                    overflowX: "auto",
+                    gap: "1rem"
+                }}>
+                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5 zoom-effect">
                         <figure className="effect-ming tm-video-item">
-                            <img src="/images/img-05.jpg" alt="Image" class="img-fluid" />
-                            <figcaption class="d-flex align-items-center justify-content-center">  
-                            <h2 className="col-6 tm-text-primary">Clocks</h2>
-                            <a href="photo-detail.html">View more</a>
+                            <img src="/images/img-05.jpg" alt="Image" className="img-fluid" />
+                            <figcaption className="d-flex align-items-center justify-content-center">
+                                <h2 className="col-6 tm-text-primary">Clocks</h2>
+                                <a href="photo-detail.html">View more</a>
                             </figcaption>
                         </figure>
-                        <div class="d-flex justify-content-between tm-text-gray">
-                            <span class="tm-text-gray-light">18 Oct 2020</span>
+                        <div className="d-flex justify-content-between tm-text-gray">
+                            <span className="tm-text-gray-light">18 Oct 2020</span>
                             {/* <span>9,906 views</span> */}
                         </div>
                     </div>
-                </div>
-
-                {/* Pagination */}
-                <div class="row tm-mb-90">
-                    <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
-                        <a href="javascript:void(0);" class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
-                        <div class="tm-paging d-flex">
-                            <a href="javascript:void(0);" class="active tm-paging-link">1</a>
-                            <a href="javascript:void(0);" class="tm-paging-link">2</a>
-                            <a href="javascript:void(0);" class="tm-paging-link">3</a>
-                            <a href="javascript:void(0);" class="tm-paging-link">4</a>
+                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5 zoom-effect">
+                        <figure className="effect-ming tm-video-item">
+                            <img src="/images/img-05.jpg" alt="Image" className="img-fluid" />
+                            <figcaption className="d-flex align-items-center justify-content-center">
+                                <h2 className="col-6 tm-text-primary">Clocks</h2>
+                                <a href="photo-detail.html">View more</a>
+                            </figcaption>
+                        </figure>
+                        <div className="d-flex justify-content-between tm-text-gray">
+                            <span className="tm-text-gray-light">18 Oct 2020</span>
+                            {/* <span>9,906 views</span> */}
                         </div>
-                        <a href="javascript:void(0);" class="btn btn-primary tm-btn-next">Next Page</a>
                     </div>
+                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5 zoom-effect">
+                        <figure className="effect-ming tm-video-item">
+                            <img src="/images/img-05.jpg" alt="Image" className="img-fluid" />
+                            <figcaption className="d-flex align-items-center justify-content-center">
+                                <h2 className="col-6 tm-text-primary">Clocks</h2>
+                                <a href="photo-detail.html">View more</a>
+                            </figcaption>
+                        </figure>
+                        <div className="d-flex justify-content-between tm-text-gray">
+                            <span className="tm-text-gray-light">18 Oct 2020</span>
+                            {/* <span>9,906 views</span> */}
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </>
