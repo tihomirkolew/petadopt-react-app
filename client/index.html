@@ -4,13 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="/styles/bootstrap.min.css">
-    <link rel="stylesheet" href="/styles/fontawesome/all.min.css">
     <link rel="stylesheet" href="/styles/templatemo-style.css">
+    <link rel="stylesheet" href="/styles/fontawesome/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pet-adopt-react</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <script src="public/js/plugins.js"></script>
+    <script>
+        $(window).on("load", function() {
+            $('body').addClass('loaded');
+        });
+    </script>
   </body>
 </html>
