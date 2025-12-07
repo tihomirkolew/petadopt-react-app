@@ -8,14 +8,14 @@ export default function Home() {
 
     useEffect(() => {
         fetch(`http://localhost:3030/data/pets?sortBy=${searchParams}&pageSize=3`)
-        .then(res => res.json())
-        .then(data => {
-            setLatestPets(data);
-        })
-        .catch(err => {
-            console.error('Error fetching latest pets:', err);
-        });
-            
+            .then(response => response.json())
+            .then(data => {
+                setLatestPets(data);
+            })
+            .catch(err => {
+                console.error('Error fetching latest pets:', err);
+            });
+
     }, [searchParams]);
 
     return (
@@ -36,8 +36,12 @@ export default function Home() {
                     overflowX: "auto",
                     gap: "1rem"
                 }}>
-                    
-                {latestPets.map(pet => <PetCard key={pet._id} {...pet} />)}
+                    {latestPets.map(pet =>
+                        <PetCard
+                            key={pet._id}
+                            {...pet}
+                            zoomEffect="zoom-effect"
+                        />)}
 
                 </div>
             </div>

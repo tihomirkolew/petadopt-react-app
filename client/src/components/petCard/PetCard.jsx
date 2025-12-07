@@ -2,6 +2,7 @@ export default function PetCard({
     name,
     imageUrl,
     _createdOn,
+    zoomEffect,
 }) {
     const createdDate = new Date(_createdOn).toLocaleString('en-GB', {
         day: '2-digit',
@@ -11,7 +12,7 @@ export default function PetCard({
 
     return (
         <>
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 mb-5 zoom-effect">
+            <div className={`col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 mb-5 btr-image ${zoomEffect || ""}`}>
                 <figure className="effect-ming tm-video-item">
                     <img src={imageUrl} alt="Image" className="img-fluid" />
                     <figcaption className="d-flex align-items-center justify-content-center">
