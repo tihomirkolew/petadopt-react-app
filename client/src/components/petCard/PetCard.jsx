@@ -1,4 +1,7 @@
+import { Link } from "react-router";
+
 export default function PetCard({
+    _id,
     name,
     imageUrl,
     _createdOn,
@@ -17,7 +20,7 @@ export default function PetCard({
                     <img src={imageUrl} alt="Image" className="img-fluid" />
                     <figcaption className="d-flex align-items-center justify-content-center">
                         <h2 className="col-6 tm-text-primary">{name}</h2>
-                        <a href="photo-detail.html">View more</a>
+                        <Link to={`/pets/${_id}/details`}>View more</Link>
                     </figcaption>
                 </figure>
                 <div className="d-flex justify-content-between tm-text-gray">

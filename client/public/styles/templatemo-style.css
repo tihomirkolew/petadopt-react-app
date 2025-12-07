@@ -263,6 +263,10 @@ a:hover {
     font-size: 1.2rem;
 }
 
+.btn-primary-delete {
+    background-color:#FF6666 ;
+}
+
 .btn-primary:hover,
 .btn-primary:focus {
     background-color: #086969;
@@ -273,6 +277,11 @@ a:hover {
     background-color: #009999;
     pointer-events: all;
     cursor: not-allowed;
+}
+
+.btn-primary-delete:hover,
+.btn-primary-delete:focus {
+    background-color:#ff2727 ;
 }
 
 .form-control {
@@ -311,6 +320,10 @@ a:hover {
 
 .tm-mt-60 {
     margin-top: 60px;
+}
+
+.tm-mt-40 {
+    margin-top: 40px;
 }
 
 .tm-mb-50 {

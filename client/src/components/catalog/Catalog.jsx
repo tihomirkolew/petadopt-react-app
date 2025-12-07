@@ -21,7 +21,7 @@ export default function Catalog() {
 
     return (
         <>
-            <div className="container-fluid tm-container-content"
+            <div className="tm-container-content"
                 style={{
                     minHeight: '75vh',
                     margin: '60px 60px 0px 60px',

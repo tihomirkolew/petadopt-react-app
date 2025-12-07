@@ -1,7 +1,7 @@
 export default function CreatePet() {
     return (
         <>
-            <div class="col-lg-6 col-12 mb-5 mx-auto" style={{minHeight: '79vh'}}>
+            <div class="col-lg-6 col-12 mb-5 mx-auto" style={{minHeight: '74vh'}}>
                 <h2 class="tm-text-primary pt-5 mb-5 text-center">Add a Pet for Adoption</h2>
                 <form id="add-pet-form" action="" method="POST" class="tm-contact-form mx-auto">
                     <div class="form-group">
@@ -15,7 +15,6 @@ export default function CreatePet() {
                             <option value="">Select Kind</option>
                             <option value="dog">Dog</option>
                             <option value="cat">Cat</option>
-                            <option value="rabbit">Rabbit</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
