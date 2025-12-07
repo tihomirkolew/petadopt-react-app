@@ -11,7 +11,6 @@ export default function Details() {
         fetch(`http://localhost:3030/jsonstore/pets/${petId}`)
             .then(response => response.json())
             .then(result => setPet((result)))
-            .then(console.log(pet))
             .catch(err => alert(err.message));
     }, [petId]);
 
@@ -63,16 +62,16 @@ export default function Details() {
                         <div className="tm-bg-gray tm-video-details d-flex flex-column justify-content-between">
                             <div className="mb-4">
                                 <div className="row mb-4">
-                                    <h1 className="col-12 tm-text-primary">{pet.name}</h1>
+                                    <h1 className="col-12 tm-text-primary">{pet?.name}</h1>
                                 </div>
-                                <h3 className="tm-text-gray-dark mb-3">Age: <span className="tm-text-primary">{pet.age}</span></h3>
+                                <h3 className="tm-text-gray-dark mb-3">Age: <span className="tm-text-primary">{pet?.age}</span></h3>
 
                                 <div>
-                                    <h3 className="tm-text-gray-dark mb-3">Kind: <span className="tm-text-primary">{pet.kind}</span></h3>
+                                    <h3 className="tm-text-gray-dark mb-3">Kind: <span className="tm-text-primary">{pet?.kind}</span></h3>
                                 </div>
-                                <p>{pet.description}</p>
+                                <p>{pet?.description}</p>
                                 <div>
-                                    <h3 className="tm-text-gray-dark mb-3">Contact: <span className="tm-text-primary">{pet.contact}</span></h3>
+                                    <h3 className="tm-text-gray-dark mb-3">Contact: <span className="tm-text-primary">{pet?.contact}</span></h3>
                                 </div>
                             </div>
                             {/* Action buttons */}

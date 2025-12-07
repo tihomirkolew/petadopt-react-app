@@ -22,7 +22,7 @@ function App() {
                 {/* pet details */}
                 <Route path="/pets/:petId/details" element={<Details />} />
                 {/* pet edit */}
-                <Route path="/games/:petId/edit" element={<EditPet />} />
+                <Route path="/pets/:petId/edit" element={<EditPet />} />
                 <Route path="/pets/create" element={<CreatePet />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
