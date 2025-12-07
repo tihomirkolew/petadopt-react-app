@@ -5,19 +5,38 @@ export default function Catalog() {
 
     const [pets, setPets] = useState([]);
 
-    const searchParams = encodeURIComponent('_createdOn');
+    // const searchParams = encodeURIComponent('_createdOn');
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:3030/data/pets?sortBy=${searchParams}`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setPets(data);
+    //         })
+    //         .catch(err => {
+    //             console.error('Error fetching latest pets:', err);
+    //         });
+
+    // }, [searchParams]);
 
     useEffect(() => {
-        fetch(`http://localhost:3030/data/pets?sortBy=${searchParams}`)
-            .then(res => res.json())
+        fetch("http://localhost:3030/jsonstore/pets")
+            .then(response => response.json())
             .then(data => {
-                setPets(data);
+                // jsonstore returns an object keyed by id, so convert to array
+                const petsArray = Object.values(data);
+
+                // sort manually by _createdOn descending
+                const sortedPets = petsArray.sort((a, b) => a._createdOn - b._createdOn);
+                console.log(sortedPets);
+
+                // take the latest 3
+                setPets(sortedPets);                
             })
             .catch(err => {
-                console.error('Error fetching latest pets:', err);
+                console.error("Error fetching latest pets:", err);
             });
-
-    }, [searchParams]);
+    }, []);
 
     return (
         <>

@@ -4,19 +4,40 @@ import PetCard from "../petCard/PetCard";
 export default function Home() {
     const [latestPets, setLatestPets] = useState([]);
 
-    const searchParams = encodeURIComponent('_createdOn desc');
+    // const searchParams = encodeURIComponent('_createdOn desc');
 
+    // useEffect(() => {
+    //     fetch(`http://localhost:3030/data/pets?sortBy=${searchParams}&pageSize=3`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setLatestPets(data);
+    //         })
+    //         .catch(err => {
+    //             console.error('Error fetching latest pets:', err);
+    //         });
+
+    // }, [searchParams]);
+
+    // use jsonstore until auth is implemented
     useEffect(() => {
-        fetch(`http://localhost:3030/data/pets?sortBy=${searchParams}&pageSize=3`)
+        fetch("http://localhost:3030/jsonstore/pets")
             .then(response => response.json())
             .then(data => {
-                setLatestPets(data);
+                // jsonstore returns an object keyed by id, so convert to array
+                const petsArray = Object.values(data);
+
+                // sort manually by _createdOn descending
+                const sortedPets = petsArray.sort((a, b) => b._createdOn - a._createdOn);
+                console.log(sortedPets);
+
+                // take the latest 3
+                console.log(sortedPets.slice(0, 3));
+                setLatestPets(sortedPets.slice(0, 3));                
             })
             .catch(err => {
-                console.error('Error fetching latest pets:', err);
+                console.error("Error fetching latest pets:", err);
             });
-
-    }, [searchParams]);
+    }, []);
 
     return (
         <>

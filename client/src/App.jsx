@@ -8,27 +8,29 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Logout from "./components/logout/Logout";
 import Details from "./components/details/Details";
+import EditPet from "./components/editPet/EditPet";
 
 function App() {
 
-  return (
-    <>
-      <Header />
+    return (
+        <>
+            <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/catalog" element={<Catalog />} />
-        {/* pet details */}
-        <Route path="/pets/:petId/details" element={<Details />} />
-        {/* pet edit */}
-        <Route path="/pets/create" element={<CreatePet />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/logout" element={<Logout />} />
-      </Routes>
-      <Footer />
-    </>
-  )
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/catalog" element={<Catalog />} />
+                {/* pet details */}
+                <Route path="/pets/:petId/details" element={<Details />} />
+                {/* pet edit */}
+                <Route path="/games/:petId/edit" element={<EditPet />} />
+                <Route path="/pets/create" element={<CreatePet />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/logout" element={<Logout />} />
+            </Routes>
+            <Footer />
+        </>
+    )
 }
 
 export default App
