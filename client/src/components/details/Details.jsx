@@ -14,31 +14,28 @@ export default function Details() {
             .catch(err => alert(err.message));
     }, [petId]);
 
-    const deletePetHandler = () => {
-        const isConfirmed = confirm(`Are you sure you want to delete "${pet.name}"`);
+    const deletePetHandler = async () => {
+    const isConfirmed = confirm(`Are you sure you want to delete "${pet.name}"`);
+    if (!isConfirmed) return;
 
-        if (!isConfirmed) {
-            return;
+    try {
+        const response = await fetch(`http://localhost:3030/jsonstore/pets/${petId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message);
         }
 
-        try {
-            fetch(`http://localhost:3030/jsonstore/pets/${petId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }).then(response => {
-                if (!response.ok) {
-                    return response.json().then(err => { throw new Error(err.message); });
-                }
-                // Redirect to catalog or home page after deletion
-                navigate('/');
-            });
-        } catch (error) {
-            alert(error.message);
-        }
-
+        navigate('/catalog');
+    } catch (error) {
+        alert(error.message);
     }
+};
 
     if (!pet) {
         return (

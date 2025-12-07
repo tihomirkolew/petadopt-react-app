@@ -28,7 +28,6 @@ export default function Catalog() {
 
                 // sort manually by _createdOn descending
                 const sortedPets = petsArray.sort((a, b) => a._createdOn - b._createdOn);
-                console.log(sortedPets);
 
                 // take the latest 3
                 setPets(sortedPets);                

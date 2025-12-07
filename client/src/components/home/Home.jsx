@@ -28,10 +28,8 @@ export default function Home() {
 
                 // sort manually by _createdOn descending
                 const sortedPets = petsArray.sort((a, b) => b._createdOn - a._createdOn);
-                console.log(sortedPets);
 
                 // take the latest 3
-                console.log(sortedPets.slice(0, 3));
                 setLatestPets(sortedPets.slice(0, 3));                
             })
             .catch(err => {
