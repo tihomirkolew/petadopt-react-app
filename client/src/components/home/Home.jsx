@@ -4,35 +4,19 @@ import PetCard from "../petCard/PetCard";
 export default function Home() {
     const [latestPets, setLatestPets] = useState([]);
 
-    // const searchParams = encodeURIComponent('_createdOn desc');
+    const searchParams = encodeURIComponent('_createdOn desc');
 
-    // useEffect(() => {
-    //     fetch(`http://localhost:3030/data/pets?sortBy=${searchParams}&pageSize=3`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setLatestPets(data);
-    //         })
-    //         .catch(err => {
-    //             console.error('Error fetching latest pets:', err);
-    //         });
-
-    // }, [searchParams]);
-
-    // use jsonstore until auth is implemented
     useEffect(() => {
-        fetch("http://localhost:3030/jsonstore/pets")
+        fetch(`http://localhost:3030/data/pets?sortBy=${searchParams}&pageSize=3`)
             .then(response => response.json())
             .then(data => {
-                const petsArray = Object.values(data);
-
-                const sortedPets = petsArray.sort((a, b) => b._createdOn - a._createdOn);
-
-                setLatestPets(sortedPets.slice(0, 3));                
+                setLatestPets(data);
             })
             .catch(err => {
-                console.error("Error fetching latest pets:", err);
+                console.error('Error fetching latest pets:', err);
             });
-    }, []);
+
+    }, [searchParams]);
 
     return (
         <>

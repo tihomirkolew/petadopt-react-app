@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router";
+import UserContext from "../../contexts/UserContext";
 
 export default function CreatePet() {
+    const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
     const createPetHandler = async (e) => {
@@ -11,10 +14,11 @@ export default function CreatePet() {
         const petData = Object.fromEntries(formData.entries());
         petData._createdOn = Date.now();
 
-        const response = await fetch('http://localhost:3030/jsonstore/pets', {
+        const response = await fetch('http://localhost:3030/data/pets', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                "X-Authorization": user?.accessToken,
             },
             body: JSON.stringify(petData),
         });

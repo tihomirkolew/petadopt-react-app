@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
+import UserContext from "../../contexts/UserContext";
 
 export default function Details() {
+    const { user } = useContext(UserContext);
     const { petId } = useParams();
     const [pet, setPet] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         // Fetch pet details using petId
-        fetch(`http://localhost:3030/jsonstore/pets/${petId}`)
+        fetch(`http://localhost:3030/data/pets/${petId}`)
             .then(response => response.json())
             .then(result => setPet((result)))
             .catch(err => alert(err.message));
@@ -19,10 +21,11 @@ export default function Details() {
     if (!isConfirmed) return;
 
     try {
-        const response = await fetch(`http://localhost:3030/jsonstore/pets/${petId}`, {
+        const response = await fetch(`http://localhost:3030/data/pets/${petId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                "X-Authorization": user?.accessToken,
             },
         });
 

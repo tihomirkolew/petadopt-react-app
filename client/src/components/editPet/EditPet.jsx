@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import UserContext from "../../contexts/UserContext";
 
 export default function EditPet() {
+    const { user } = useContext(UserContext);
     const navigate = useNavigate();
     const { petId } = useParams();
     const [pet, setPet] = useState(null);
@@ -9,13 +11,14 @@ export default function EditPet() {
         name: '',
         age: '',
         kind: '',
+        contact: '',
         description: '',
         imageUrl: ''
     });
 
     // get pet details
     useEffect(() => {
-        fetch(`http://localhost:3030/jsonstore/pets/${petId}`)
+        fetch(`http://localhost:3030/data/pets/${petId}`)
             .then(response => response.json())
             .then(result => {
                 setPet((result))
@@ -36,10 +39,11 @@ export default function EditPet() {
         };
 
         try {
-            const response = await fetch(`http://localhost:3030/jsonstore/pets/${petId}`, {
+            const response = await fetch(`http://localhost:3030/data/pets/${petId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    "X-Authorization": user?.accessToken,
                 },
                 body: JSON.stringify(data),
             });
@@ -98,6 +102,7 @@ export default function EditPet() {
                             type="text"
                             name="contact"
                             className="form-control rounded-0"
+                            defaultValue={values?.contact}
                             placeholder="0888.../email"
                             required
                         />
