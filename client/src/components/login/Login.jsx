@@ -8,7 +8,7 @@ export default function Login() {
                         <input type="email" name="email" className="form-control rounded-0" placeholder="Email" required />
                     </div>
                     <div className="form-group">
-                        <input type="password" name="password" className="form-control rounded-0" placeholder="Password" required />
+                        <input type="password" name="password" className="form-control rounded-0" placeholder="Password" required autoComplete="off" />
                     </div>
                     <div className="form-group text-center">
                         <button type="submit" className="btn btn-primary">Login</button>

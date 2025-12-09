@@ -1,6 +1,9 @@
 import { Link } from "react-router";
+import { useUserContext } from "../../contexts/UserContext";
 
 export default function Header() {
+    const { user } = useUserContext();
+
     return (
         <>
             <nav className="navbar navbar-expand-lg">
@@ -14,24 +17,38 @@ export default function Header() {
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i className="fas fa-bars"></i>
                     </button>
-                    
+
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
                             <li className="nav-item">
                                 <Link className="nav-link nav-link-1" aria-current="page" to="/catalog">Catalog</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link nav-link-3" to="/pets/create">Add listing</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link nav-link-4" to="/login">Login</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link nav-link-4" to="/register">Register</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link nav-link-2" to="/logout">Logout</Link>
-                            </li>
+                            {user && (
+                                <li className="nav-item">
+                                    <Link className="nav-link nav-link-3" to="/pets/create">Add listing</Link>
+                                </li>
+                            )}
+                            {!user && (
+                                <>
+                                    <li className="nav-item">
+                                        <Link className="nav-link nav-link-4" to="/login">
+                                            Login
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link nav-link-4" to="/register">
+                                            Register
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
+                            {user && (
+                                <li className="nav-item">
+                                    <Link className="nav-link nav-link-2" to="/logout">
+                                        Logout
+                                    </Link>
+                                </li>
+                            )}
                         </ul>
                     </div>
                 </div>

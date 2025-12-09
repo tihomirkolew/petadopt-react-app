@@ -23,13 +23,10 @@ export default function Home() {
         fetch("http://localhost:3030/jsonstore/pets")
             .then(response => response.json())
             .then(data => {
-                // jsonstore returns an object keyed by id, so convert to array
                 const petsArray = Object.values(data);
 
-                // sort manually by _createdOn descending
                 const sortedPets = petsArray.sort((a, b) => b._createdOn - a._createdOn);
 
-                // take the latest 3
                 setLatestPets(sortedPets.slice(0, 3));                
             })
             .catch(err => {
