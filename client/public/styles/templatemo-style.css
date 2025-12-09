@@ -259,12 +259,32 @@ a:hover {
     background-color: #009999;
     border: 0;
     border-radius: 5px;
-    padding: 12px 50px 14px;
+    padding: 10px 50px 14px;
+    font-size: 1.2rem;
+    text-align: center;
+    justify-content: center;
+}
+
+.btn-primary-likes {
+    background-color: #009999;
+    border: 2px solid #009999;
+    border-radius: 5px;
+    padding: 10px 50px 14px;
+    font-size: 1.2rem;
+}
+
+.btn-outline-primary {
+    background-color: #fff;   /* inverted: white background */
+    color: #009999;           /* teal text */
+    border: 2px solid #009999;
+    border-radius: 5px;
+    padding: 10px 50px 14px;
     font-size: 1.2rem;
 }
 
 .btn-primary-delete {
     background-color:#FF6666 ;
+    padding: 10px 40px 14px;
 }
 
 .btn-primary:hover,

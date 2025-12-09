@@ -19,6 +19,7 @@ export function UserProvider({ children }) {
 
     const registerHandler = async (email, password, confirmPassword) => {
         if (password !== confirmPassword) {
+            alert('Passwords do not match');
             throw new Error('Passwords do not match');
         }
 
@@ -41,7 +42,7 @@ export function UserProvider({ children }) {
             const data = await response.json();
 
             setUser(data);
-            return data;
+            
         } catch (err) {
             alert(err.message);
             throw err;
@@ -68,7 +69,8 @@ export function UserProvider({ children }) {
             const data = await response.json();
             setUser(data);
         } catch (err) {
-            console.error('Error during login:', err.message);
+            alert(err.message);
+            throw err;
         }
     };
 

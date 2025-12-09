@@ -9,6 +9,7 @@ import Register from "./components/register/Register";
 import Logout from "./components/logout/Logout";
 import Details from "./components/details/Details";
 import EditPet from "./components/editPet/EditPet";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 
 function App() {
 
@@ -22,8 +23,8 @@ function App() {
                 {/* pet details */}
                 <Route path="/pets/:petId/details" element={<Details />} />
                 {/* pet edit */}
-                <Route path="/pets/:petId/edit" element={<EditPet />} />
-                <Route path="/pets/create" element={<CreatePet />} />
+                <Route path="/pets/:petId/edit" element={<ProtectedRoute> <EditPet/> </ProtectedRoute>} />
+                <Route path="/pets/create" element={<ProtectedRoute> <CreatePet /> </ProtectedRoute>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/logout" element={<Logout />} />

@@ -12,6 +12,8 @@ export default function Catalog() {
             .then(res => res.json())
             .then(data => {
                 setPets(data);
+                console.log(data);
+                
             })
             .catch(err => {
                 console.error('Error fetching latest pets:', err);
