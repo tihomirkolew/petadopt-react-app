@@ -20,12 +20,10 @@ A React.js application for pet adoption, helping users find and adopt pets.
 - **General Functionality:**
   - Client-side routing with 5+ routes
   - Route guards (guests vs logged-in users)
-  - Responsive UI with external CSS styling
+  - Responsive UI using CSS Modules / external CSS
   - Context API for authentication state
-  - React Hooks
-  - Stateless & stateful components
-  - Bound forms and synthetic events
-  - Demonstrated lifecycle
+  - React Hooks with stateless & stateful components
+  - Form handling with synthetic events
 
 ---
 
@@ -44,21 +42,28 @@ A React.js application for pet adoption, helping users find and adopt pets.
 - npm or yarn
 
 ### Installation
+
 ```bash
+# Client setup
 cd client
 npm install
-cd server
+
+# Server setup
+cd ../server
 npm install
 ```
 
-### Starting the App
-1. Start the Client
-- cd client
-- npm run dev
+### Running the App
 
-2. Start the Server
-- cd server
-- node .\index.js
+```bash
+# Start the client
+cd client
+npm run dev
+
+# Start the server
+cd ../server
+node index.js
+```
 
 ## Contributing
 Contributions are welcome! Please fork and submit a pull request.
