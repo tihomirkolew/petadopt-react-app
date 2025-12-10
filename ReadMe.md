@@ -45,7 +45,20 @@ A React.js application for pet adoption, helping users find and adopt pets.
 
 ### Installation
 ```bash
+cd client
 npm install
+cd server
+npm install
+```
+
+### Starting the App
+1. Start the Client
+- cd client
+- npm run dev
+
+2. Start the Server
+- cd server
+- node .\index.js
 
 ## Contributing
 Contributions are welcome! Please fork and submit a pull request.
