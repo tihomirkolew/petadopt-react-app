@@ -1,8 +1,9 @@
 import { Link } from "react-router";
-import { useUserContext } from "../../contexts/UserContext";
+import UserContext from "../../contexts/UserContext";
+import { useContext } from "react";
 
 export default function Header() {
-    const { user } = useUserContext();
+    const { isAuthenticated } = useContext(UserContext);
 
     return (
         <>
@@ -23,12 +24,12 @@ export default function Header() {
                             <li className="nav-item">
                                 <Link className="nav-link nav-link-1" aria-current="page" to="/catalog">Catalog</Link>
                             </li>
-                            {user && (
+                            {isAuthenticated && (
                                 <li className="nav-item">
                                     <Link className="nav-link nav-link-3" to="/pets/create">Add listing</Link>
                                 </li>
                             )}
-                            {!user && (
+                            {!isAuthenticated && (
                                 <>
                                     <li className="nav-item">
                                         <Link className="nav-link nav-link-4" to="/login">
@@ -42,7 +43,7 @@ export default function Header() {
                                     </li>
                                 </>
                             )}
-                            {user && (
+                            {isAuthenticated && (
                                 <li className="nav-item">
                                     <Link className="nav-link nav-link-2" to="/logout">
                                         Logout

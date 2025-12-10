@@ -108,7 +108,7 @@ export default function Details() {
                 //     },
                 //     body: JSON.stringify({ petId }),
                 // });
-                
+
                 // if (!response.ok) {
                 //     const err = await response.json();
                 //     throw new Error(err.message);
@@ -160,18 +160,6 @@ export default function Details() {
                                     <h3 className="tm-text-gray-dark mb-3">Contact: <span className="tm-text-primary">{pet?.contact}</span></h3>
                                 </div>
                             </div>
-
-                            {/* <div className="d-flex justify-content-start mt-4">
-                                <button
-                                    onClick={toggleLikeHandler}
-                                    className={`btn ${hasLiked ? 'btn-primary-likes' : 'btn-outline-primary'}`}
-                                    style={{ width: '139px' }}
-                                >
-                                    <i className={`fas fa-heart ${hasLiked ? 'text-light' : ''}`}></i> {petLikes.length}
-                                </button>
-                            </div> */}
-
-                            {/* {user && */}
                             <div className="d-flex justify-content-between mt-4">
                                 <div className="d-flex justify-content-start">
                                     <button
@@ -182,15 +170,26 @@ export default function Details() {
                                         <i className={`fas fa-heart ${hasLiked ? 'text-light' : ''}`}></i> {petLikes.length}
                                     </button>
                                 </div>
-                                {user &&
-                                    <Link to={`/pets/${petId}/edit`} className="btn btn-primary" style={{ width: '139px' }}>Edit</Link>
-                                }
+                                {user?._id === pet?._ownerId && (
+                                    <>
+                                        <Link
+                                            to={`/pets/${petId}/edit`}
+                                            className="btn btn-primary"
+                                            style={{ width: '139px' }}
+                                        >
+                                            Edit
+                                        </Link>
 
-                                {user &&
-                                    <button onClick={deletePetHandler} className="btn btn-primary btn-primary-delete" style={{ width: '139px', textAlign: 'center' }}>Delete</button>
-                                }
+                                        <button
+                                            onClick={deletePetHandler}
+                                            className="btn btn-primary btn-primary-delete"
+                                            style={{ width: '139px', textAlign: 'center' }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </>
+                                )}
                             </div>
-                            {/* } */}
                         </div>
                     </div>
                 </div>

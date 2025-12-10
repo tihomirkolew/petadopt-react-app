@@ -7,13 +7,6 @@ export default function usePetRequest(url) {
     const { user, isAuthenticated } = useContext(UserContext);
     const [fetchedData, setFetchedData] = useState([]);
 
-    // get pets
-    // get pet by id
-    // create pet
-    // edit pet
-    // delete pet
-    // like pet
-
     const getData = async () => {
         let data = [];
 
@@ -44,7 +37,7 @@ export default function usePetRequest(url) {
             settings.body = JSON.stringify(data)
         }
 
-        if (user?.accessToken) {
+        if (isAuthenticated) {
             settings.headers = {
                 ...settings.headers,
                 'X-Authorization': user?.accessToken,
