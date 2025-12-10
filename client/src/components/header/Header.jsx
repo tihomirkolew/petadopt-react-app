@@ -3,7 +3,7 @@ import UserContext from "../../contexts/UserContext";
 import { useContext } from "react";
 
 export default function Header() {
-    const { isAuthenticated } = useContext(UserContext);
+    const { user, isAuthenticated } = useContext(UserContext);
 
     return (
         <>
@@ -29,6 +29,12 @@ export default function Header() {
                                     <Link className="nav-link nav-link-3" to="/pets/create">Add listing</Link>
                                 </li>
                             )}
+                            {isAuthenticated && (
+                                <li className="nav-item">
+                                    <Link className="nav-link nav-link-3" to={`${user._id}/user-pets`}>My listings</Link>
+                                </li>
+                            )}
+
                             {!isAuthenticated && (
                                 <>
                                     <li className="nav-item">

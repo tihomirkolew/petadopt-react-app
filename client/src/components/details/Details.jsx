@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router";
 import UserContext from "../../contexts/UserContext";
-import useRequest from "../../hooks/useRequest";
 import usePetRequest from "../../hooks/usePetRequest";
 
 export default function Details() {
@@ -10,24 +9,16 @@ export default function Details() {
 
     const navigate = useNavigate();
 
-    // const params = new URLSearchParams({
-    //     where: `petId="${petId}"`
-    // });
-
-    // fetch pet details
     const { fetchedData: pet, request: petRequest } = usePetRequest(
         `http://localhost:3030/data/pets/${petId}`
     );
 
-    // requester for likes (base URL only)
     const { fetchedData: allLikes, request: likesRequest } = usePetRequest(
         `http://localhost:3030/data/likes`
     );
 
-    // local state for likes of this pet only
     const [petLikes, setPetLikes] = useState([]);
 
-    // whenever allLikes changes, filter them for this pet
     useEffect(() => {
         if (allLikes && Array.isArray(allLikes)) {
             const filtered = allLikes.filter(like => like.petId === petId);
@@ -35,7 +26,6 @@ export default function Details() {
         }
     }, [allLikes, petId]);
 
-    // check if current user has liked this pet
     const hasLiked = petLikes.some(like => like._ownerId === user?._id);
 
     const deletePetHandler = async () => {
@@ -50,7 +40,6 @@ export default function Details() {
         }
     };
 
-    // toggle like handler
     const toggleLikeHandler = async () => {
         if (!user) {
             alert('You must be logged in to like a pet.');
@@ -77,7 +66,6 @@ export default function Details() {
 
             try {
                 // Add like
-
                 const newLike = await likesRequest('POST', { petId })
                 setPetLikes([...petLikes, newLike])
                 console.log(`User: ${user._id} has 

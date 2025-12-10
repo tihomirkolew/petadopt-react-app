@@ -10,6 +10,8 @@ import Logout from "./components/logout/Logout";
 import Details from "./components/details/Details";
 import EditPet from "./components/editPet/EditPet";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import UserContext from "./contexts/UserContext";
+import UserPets from "./components/userPets/UserPets";
 
 function App() {
 
@@ -20,6 +22,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/catalog" element={<Catalog />} />
+                <Route path="/:userId/user-pets" element={<ProtectedRoute> <UserPets /> </ProtectedRoute>} />
                 {/* pet details */}
                 <Route path="/pets/:petId/details" element={<Details />} />
                 {/* pet edit */}
@@ -28,6 +31,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/logout" element={<Logout />} />
+                
             </Routes>
             <Footer />
         </>
