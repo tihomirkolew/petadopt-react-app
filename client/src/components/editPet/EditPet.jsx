@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import UserContext from "../../contexts/UserContext";
+import usePetRequest from "../../hooks/usePetRequest";
 
 export default function EditPet() {
-    const { user } = useContext(UserContext);
     const navigate = useNavigate();
     const { petId } = useParams();
-    const [pet, setPet] = useState(null);
+
     const [values, setValues] = useState({
         name: '',
         age: '',
@@ -17,15 +17,13 @@ export default function EditPet() {
     });
 
     // get pet details
+    const { fetchedData: pet, petRequest } = usePetRequest(`http://localhost:3030/data/pets/${petId}`);
+
     useEffect(() => {
-        fetch(`http://localhost:3030/data/pets/${petId}`)
-            .then(response => response.json())
-            .then(result => {
-                setPet((result))
-                setValues(result)
-            })
-            .catch(err => alert(err.message))
-    }, [petId]);
+        if (pet) {
+            setValues(pet)
+        }
+    }, [pet] );
 
     const editPetHandler = async (e) => {
         e.preventDefault();
@@ -38,29 +36,8 @@ export default function EditPet() {
             ...updatedPetData,
         };
 
-        try {
-            const response = await fetch(`http://localhost:3030/data/pets/${petId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    "X-Authorization": user?.accessToken,
-                },
-                body: JSON.stringify(data),
-            });
-            if (!response.ok) {
-                alert('Error editing pet');
-                return;
-            }
-
-            const result = await response.json();
-            console.log('Pet edited successfully:', result);
-            setPet(result);
-            alert(`Successfully edited ${result.name}'s listing!`);
-
-            navigate(`/pets/${petId}/details`);
-        } catch (error) {
-            alert(error.message);
-        }
+        petRequest('PUT', data);
+        navigate(`/pets/${petId}/details`);
     }
 
     return (

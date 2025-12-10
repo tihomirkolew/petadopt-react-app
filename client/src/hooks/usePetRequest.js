@@ -66,6 +66,8 @@ export default function usePetRequest(url) {
     }
 
     useEffect(() => {
+        if (!url) return;
+
         getData(url)
             .then(data => setFetchedData(data))
             .catch(err => console.error('Error fetching data:', err));
