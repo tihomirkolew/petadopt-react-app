@@ -5,10 +5,38 @@
 A React.js application for pet adoption, helping users find and adopt pets.
 
 ## Features
-- Browse available pets
-- Filter by pet type, breed, and location
-- Pet detail pages
-- User-friendly interface
+- **Public Part (Guest Users):**
+  - Home page with introduction
+  - Catalog of all pets
+  - Pet details view
+  - Login & Register forms
+
+- **Private Part (Authenticated Users):**
+  - Create new pet records
+  - Edit / Delete own pets
+  - Like pets created by others
+  - Personal dashboard with owned pets
+
+- **General Functionality:**
+  - Client-side routing with 5+ routes (including parameterized routes for details/edit)
+  - Error handling and form validation
+  - Route guards (guests vs logged-in users)
+  - Responsive UI with external CSS styling
+  - Context API for authentication state
+  - React Hooks (`useState`, `useEffect`, `useContext`, custom hooks)
+  - Stateless & stateful components
+  - Bound forms and synthetic events
+  - Demonstrated lifecycle (mount/unmount via `useEffect` cleanup)
+
+---
+
+## Technologies Used
+- **Frontend:** React.js (Vite), JavaScript (ES6+), Context API, React Hooks  
+- **Styling:** CSS Modules / external CSS files  
+- **Backend:** SoftUni Practice Server ([link](https://github.com/softuni-practice-server/softuni-practice-server))  
+- **Other:** REST API communication, GitHub for source control  
+
+---
 
 ## Getting Started
 
@@ -19,19 +47,6 @@ A React.js application for pet adoption, helping users find and adopt pets.
 ### Installation
 ```bash
 npm install
-```
-
-### Running the Project
-```bash
-npm run dev # for developing purposes
-node index.js
-```
-
-## Technologies Used
-- React.js
-- JavaScript (ES6+)
-- CSS/Styled Components
-- SoftUni's practice server (https://github.com/softuni-practice-server/softuni-practice-server)
 
 ## Contributing
 Contributions are welcome! Please fork and submit a pull request.
