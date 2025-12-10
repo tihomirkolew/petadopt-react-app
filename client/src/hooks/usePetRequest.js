@@ -22,14 +22,21 @@ export default function usePetRequest(url) {
         return data;
     }
 
-    const petRequest = async (method, data) => {
+    const request = async (method, data, additionalUrl) => {
         let settings = {};
+
+        let currentUrl = url;
+
+        if (additionalUrl) {
+            currentUrl = `${url}/${additionalUrl}`
+        }
 
         if (method) {
             settings.method = method;
         }
 
         if (data) {
+            
             settings.headers = {
                 'Content-Type': 'application/json',
             }
@@ -45,10 +52,10 @@ export default function usePetRequest(url) {
         }
 
         try {
-            const response = await fetch(url, settings);
+            const response = await fetch(currentUrl, settings);
 
             if (!response.ok) {
-                throw new Error('Failed to delete pet');
+                throw new Error('Failed to delete pet/like');
             }
 
             return await response.json();
@@ -69,6 +76,6 @@ export default function usePetRequest(url) {
     return {
         fetchedData,
         getData,
-        petRequest
+        request
     }
 }

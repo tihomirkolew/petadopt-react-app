@@ -7,40 +7,36 @@ import usePetRequest from "../../hooks/usePetRequest";
 export default function Details() {
     const { user } = useContext(UserContext);
     const { petId } = useParams();
-    const [petLikes, setPetLikes] = useState([]);
-    const { fetchData } = useRequest();
+
     const navigate = useNavigate();
 
+    // const params = new URLSearchParams({
+    //     where: `petId="${petId}"`
+    // });
+
     // fetch pet details
-    const { fetchedData: pet, petRequest } = usePetRequest(`http://localhost:3030/data/pets/${petId}`);
+    const { fetchedData: pet, request: petRequest } = usePetRequest(
+        `http://localhost:3030/data/pets/${petId}`
+    );
 
-    const hasLiked = petLikes.some(like => like._ownerId === user?._id);
+    // requester for likes (base URL only)
+    const { fetchedData: allLikes, request: likesRequest } = usePetRequest(
+        `http://localhost:3030/data/likes`
+    );
 
-    // get pet details
+    // local state for likes of this pet only
+    const [petLikes, setPetLikes] = useState([]);
+
+    // whenever allLikes changes, filter them for this pet
     useEffect(() => {
-        const params = new URLSearchParams({
-            where: `petId="${petId}"`
-        });
-        // Fetch pet details using petId
+        if (allLikes && Array.isArray(allLikes)) {
+            const filtered = allLikes.filter(like => like.petId === petId);
+            setPetLikes(filtered);
+        }
+    }, [allLikes, petId]);
 
-        // fetch(`http://localhost:3030/data/pets/${petId}`)
-        //     .then(response => response.json())
-        //     .then(result => setPet((result)))
-        //     .catch(err => alert(err.message));
-
-        // fetch pet likes 
-        const petLikesData = fetchData(`/data/likes?${params.toString()}`);
-        petLikesData.then(data => setPetLikes(data))
-            .catch(err => alert(err.message));
-
-        // fetch(`http://localhost:3030/data/likes?${params.toString()}`)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         setPetLikes(data);
-        //     })
-        //     .catch(err => alert(err.message));
-
-    }, [petId, user]);
+    // check if current user has liked this pet
+    const hasLiked = petLikes.some(like => like._ownerId === user?._id);
 
     const deletePetHandler = async () => {
         const isConfirmed = confirm(`Are you sure you want to delete "${pet.name}"`);
@@ -48,47 +44,31 @@ export default function Details() {
 
         try {
             await petRequest('DELETE');
-
             navigate('/catalog');
         } catch (error) {
             alert(error.message);
         }
     };
 
+    // toggle like handler
     const toggleLikeHandler = async () => {
-        // likes is a collection associated with the pets which has petId and userId
-        // when user clicks like button, we need to check if he has already liked the pet
-        // if yes, we remove the like (dislike)
-        // if userId is in the array, like becomes dislike button
         if (!user) {
             alert('You must be logged in to like a pet.');
             navigate('/login');
             return;
         }
 
-        const userHasLikedPet = petLikes.filter(like => like._ownerId === user._id);
-        if (userHasLikedPet.length > 0) {
-            const likeId = userHasLikedPet[0]._id;
+        const existingLike = petLikes.find(like => like._ownerId === user._id)
+
+        if (existingLike) {
 
             try {
                 // Remove like
-
-                await fetchData(`/data/likes/${likeId}`, 'DELETE');
-
-                // const response = await fetch(`http://localhost:3030/data/likes/${likeId}`, {
-                //     method: 'DELETE',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         "X-Authorization": user?.accessToken,
-                //     },
-                // });
-
-                // if (!response.ok) {
-                //     const err = await response.json();
-                //     throw new Error(err.message);
-                // }
-
-                setPetLikes(petLikes.filter(like => like._id !== likeId));
+                await likesRequest('DELETE', null, `${existingLike._id}`);
+                setPetLikes(petLikes.filter(like => like._id !== existingLike._id));
+                console.log(`User: ${user._id} has
+                    unliked pet: ${petId} and
+                    deleted like: ${existingLike._id} `);
 
             } catch (error) {
                 alert(error.message);
@@ -98,32 +78,16 @@ export default function Details() {
             try {
                 // Add like
 
-                const newLike = await fetchData(`/data/likes`, 'POST', { petId });
-
-                // const response = await fetch(`http://localhost:3030/data/likes`, {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         "X-Authorization": user?.accessToken,
-                //     },
-                //     body: JSON.stringify({ petId }),
-                // });
-
-                // if (!response.ok) {
-                //     const err = await response.json();
-                //     throw new Error(err.message);
-                // }
-
-                // const newLike = await response.json();
-
-                setPetLikes([...petLikes, newLike]);
+                const newLike = await likesRequest('POST', { petId })
+                setPetLikes([...petLikes, newLike])
+                console.log(`User: ${user._id} has 
+                    liked pet: ${petId} with 
+                    like: ${newLike._id}`);
 
             } catch (error) {
                 alert(error.message);
             }
         }
-
-
     }
 
     if (!pet) {

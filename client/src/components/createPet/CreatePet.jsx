@@ -4,7 +4,7 @@ import usePetRequest from "../../hooks/usePetRequest";
 
 export default function CreatePet() {
     const navigate = useNavigate();
-    const { petRequest } = usePetRequest(`http://localhost:3030/data/pets`);
+    const { request } = usePetRequest(`http://localhost:3030/data/pets`);
 
     const createPetHandler = async (e) => {
         e.preventDefault();
@@ -14,7 +14,7 @@ export default function CreatePet() {
         const petData = Object.fromEntries(formData.entries());
         petData._createdOn = Date.now();
 
-        await petRequest('POST', petData)
+        await request('POST', petData)
 
         alert(`Successfully created ${petData.name}'s listing!`);
         

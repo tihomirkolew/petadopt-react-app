@@ -17,7 +17,7 @@ export default function EditPet() {
     });
 
     // get pet details
-    const { fetchedData: pet, petRequest } = usePetRequest(`http://localhost:3030/data/pets/${petId}`);
+    const { fetchedData: pet, request: petRequest } = usePetRequest(`http://localhost:3030/data/pets/${petId}`);
 
     useEffect(() => {
         if (pet) {
