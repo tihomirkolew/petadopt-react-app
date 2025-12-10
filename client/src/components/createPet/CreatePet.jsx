@@ -1,10 +1,10 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router";
 import UserContext from "../../contexts/UserContext";
+import usePetRequest from "../../hooks/usePetRequest";
 
 export default function CreatePet() {
-    const { user } = useContext(UserContext);
     const navigate = useNavigate();
+    const { petRequest } = usePetRequest(`http://localhost:3030/data/pets`);
 
     const createPetHandler = async (e) => {
         e.preventDefault();
@@ -14,18 +14,8 @@ export default function CreatePet() {
         const petData = Object.fromEntries(formData.entries());
         petData._createdOn = Date.now();
 
-        const response = await fetch('http://localhost:3030/data/pets', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                "X-Authorization": user?.accessToken,
-            },
-            body: JSON.stringify(petData),
-        });
-        if (!response.ok) {
-            alert('Error creating pet');
-            return;
-        }
+        await petRequest('POST', petData)
+
         alert(`Successfully created ${petData.name}'s listing!`);
         
         navigate('/catalog');

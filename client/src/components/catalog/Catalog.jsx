@@ -1,25 +1,10 @@
-import { useEffect, useState } from "react";
 import PetCard from "../petCard/PetCard";
+import usePetRequest from "../../hooks/usePetRequest";
 
 export default function Catalog() {
-
-    const [pets, setPets] = useState([]);
-
     const searchParams = encodeURIComponent('_createdOn');
 
-    useEffect(() => {
-        fetch(`http://localhost:3030/data/pets?sortBy=${searchParams}`)
-            .then(res => res.json())
-            .then(data => {
-                setPets(data);
-                console.log(data);
-                
-            })
-            .catch(err => {
-                console.error('Error fetching latest pets:', err);
-            });
-
-    }, [searchParams]);
+    const { fetchedData: pets } = usePetRequest(`http://localhost:3030/data/pets?sortBy=${searchParams}`);
 
     return (
         <>
@@ -33,6 +18,11 @@ export default function Catalog() {
                 <div className="row mb-4">
                     <h2 className="col-6 tm-text-primary">
                         All Listings
+                        <p
+                            style={{ fontSize: '9px', margin: '0', padding: '0' }}
+                        >
+                            Oldest listings first
+                        </p>
                     </h2>
                 </div>
 

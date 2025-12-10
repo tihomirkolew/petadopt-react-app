@@ -1,13 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router";
 import UserContext from "../../contexts/UserContext";
+import useRequest from "../../hooks/useRequest";
+import usePetRequest from "../../hooks/usePetRequest";
 
 export default function Details() {
     const { user } = useContext(UserContext);
     const { petId } = useParams();
-    const [pet, setPet] = useState(null);
     const [petLikes, setPetLikes] = useState([]);
+    const { fetchData } = useRequest();
     const navigate = useNavigate();
+
+    // fetch pet details
+    const { fetchedData: pet, petRequest } = usePetRequest(`http://localhost:3030/data/pets/${petId}`);
 
     const hasLiked = petLikes.some(like => like._ownerId === user?._id);
 
@@ -17,18 +22,23 @@ export default function Details() {
             where: `petId="${petId}"`
         });
         // Fetch pet details using petId
-        fetch(`http://localhost:3030/data/pets/${petId}`)
-            .then(response => response.json())
-            .then(result => setPet((result)))
+
+        // fetch(`http://localhost:3030/data/pets/${petId}`)
+        //     .then(response => response.json())
+        //     .then(result => setPet((result)))
+        //     .catch(err => alert(err.message));
+
+        // fetch pet likes 
+        const petLikesData = fetchData(`/data/likes?${params.toString()}`);
+        petLikesData.then(data => setPetLikes(data))
             .catch(err => alert(err.message));
 
-        fetch(`http://localhost:3030/data/likes?${params.toString()}`)
-            .then(response => response.json())
-            .then(data => {
-                setPetLikes(data);
-            })
-            .catch(err => alert(err.message));
-
+        // fetch(`http://localhost:3030/data/likes?${params.toString()}`)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         setPetLikes(data);
+        //     })
+        //     .catch(err => alert(err.message));
 
     }, [petId, user]);
 
@@ -37,18 +47,7 @@ export default function Details() {
         if (!isConfirmed) return;
 
         try {
-            const response = await fetch(`http://localhost:3030/data/pets/${petId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    "X-Authorization": user?.accessToken,
-                },
-            });
-
-            if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.message);
-            }
+            await petRequest('DELETE');
 
             navigate('/catalog');
         } catch (error) {
@@ -67,23 +66,27 @@ export default function Details() {
             return;
         }
 
-        const existingLikes = petLikes.filter(like => like._ownerId === user._id);
-        if (existingLikes.length > 0) {
-            const likeId = existingLikes[0]._id;
+        const userHasLikedPet = petLikes.filter(like => like._ownerId === user._id);
+        if (userHasLikedPet.length > 0) {
+            const likeId = userHasLikedPet[0]._id;
 
             try {
-                const response = await fetch(`http://localhost:3030/data/likes/${likeId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "X-Authorization": user?.accessToken,
-                    },
-                });
+                // Remove like
 
-                if (!response.ok) {
-                    const err = await response.json();
-                    throw new Error(err.message);
-                }
+                await fetchData(`/data/likes/${likeId}`, 'DELETE');
+
+                // const response = await fetch(`http://localhost:3030/data/likes/${likeId}`, {
+                //     method: 'DELETE',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         "X-Authorization": user?.accessToken,
+                //     },
+                // });
+
+                // if (!response.ok) {
+                //     const err = await response.json();
+                //     throw new Error(err.message);
+                // }
 
                 setPetLikes(petLikes.filter(like => like._id !== likeId));
 
@@ -93,21 +96,25 @@ export default function Details() {
         } else {
 
             try {
-                const response = await fetch(`http://localhost:3030/data/likes`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "X-Authorization": user?.accessToken,
-                    },
-                    body: JSON.stringify({ petId }),
-                });
+                // Add like
 
-                if (!response.ok) {
-                    const err = await response.json();
-                    throw new Error(err.message);
-                }
+                const newLike = await fetchData(`/data/likes`, 'POST', { petId });
 
-                const newLike = await response.json();
+                // const response = await fetch(`http://localhost:3030/data/likes`, {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         "X-Authorization": user?.accessToken,
+                //     },
+                //     body: JSON.stringify({ petId }),
+                // });
+                
+                // if (!response.ok) {
+                //     const err = await response.json();
+                //     throw new Error(err.message);
+                // }
+
+                // const newLike = await response.json();
 
                 setPetLikes([...petLikes, newLike]);
 
@@ -170,7 +177,7 @@ export default function Details() {
                                     <button
                                         onClick={toggleLikeHandler}
                                         className={`btn ${hasLiked ? 'btn-primary-likes' : 'btn-outline-primary'}`}
-                                        style={{ width: '80px', padding: '0' }}
+                                        style={{ width: '80px', padding: '10px 0' }}
                                     >
                                         <i className={`fas fa-heart ${hasLiked ? 'text-light' : ''}`}></i> {petLikes.length}
                                     </button>

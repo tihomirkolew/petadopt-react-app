@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
 import PetCard from "../petCard/PetCard";
+import usePetRequest from "../../hooks/usePetRequest";
 
 export default function Home() {
-    const [latestPets, setLatestPets] = useState([]);
-
     const searchParams = encodeURIComponent('_createdOn desc');
-
-    useEffect(() => {
-        fetch(`http://localhost:3030/data/pets?sortBy=${searchParams}&pageSize=3`)
-            .then(response => response.json())
-            .then(data => {
-                setLatestPets(data);
-            })
-            .catch(err => {
-                console.error('Error fetching latest pets:', err);
-            });
-
-    }, [searchParams]);
+    
+    const { fetchedData: latestPets } = usePetRequest(`http://localhost:3030/data/pets?sortBy=${searchParams}&pageSize=3`);
 
     return (
         <>
