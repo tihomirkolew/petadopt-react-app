@@ -6,7 +6,7 @@ A React.js application for pet adoption, helping users find and adopt pets.
 
 ## Features
 - **Public Part (Guest Users):**
-  - Home page with introduction
+  - Home page with latest listings
   - Catalog of all pets
   - Pet details view
   - Login & Register forms
@@ -18,15 +18,14 @@ A React.js application for pet adoption, helping users find and adopt pets.
   - Personal dashboard with owned pets
 
 - **General Functionality:**
-  - Client-side routing with 5+ routes (including parameterized routes for details/edit)
-  - Error handling and form validation
+  - Client-side routing with 5+ routes
   - Route guards (guests vs logged-in users)
   - Responsive UI with external CSS styling
   - Context API for authentication state
-  - React Hooks (`useState`, `useEffect`, `useContext`, custom hooks)
+  - React Hooks
   - Stateless & stateful components
   - Bound forms and synthetic events
-  - Demonstrated lifecycle (mount/unmount via `useEffect` cleanup)
+  - Demonstrated lifecycle
 
 ---
 
