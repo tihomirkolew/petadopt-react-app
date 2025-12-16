@@ -70,14 +70,10 @@ export default function CreatePet() {
             return;
         }
 
-        const formData = new FormData(e.target);
-
-        const petData = Object.fromEntries(formData.entries());
-        petData._createdOn = Date.now();
-
-        await request('POST', petData)
-
-        alert(`Successfully created ${petData.name}'s listing!`);
+        await request('POST', {
+            ...values,
+            _createdOn: Date.now()
+        });
 
         navigate('/catalog');
     }
