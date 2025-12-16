@@ -19,7 +19,6 @@ export function UserProvider({ children }) {
 
     const registerHandler = async (email, password, confirmPassword) => {
         if (password !== confirmPassword) {
-            alert('Passwords do not match');
             throw new Error('Passwords do not match');
         }
 
@@ -69,8 +68,8 @@ export function UserProvider({ children }) {
             const data = await response.json();
             setUser(data);
         } catch (err) {
-            alert(err.message);
-            throw err;
+            console.log(`(Server) ${err.message}`);
+            throw Error('Wrong email or password');
         }
     };
 

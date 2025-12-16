@@ -20,7 +20,10 @@ export default function Login() {
         }));
 
         if (errors[e.target.name]) {
-            setErrors(prev => ({ ...prev, [e.target.name]: undefined }));
+            setErrors(previousErrors => ({
+                ...previousErrors,
+                [e.target.name]: undefined
+            }));
         }
     };
 
