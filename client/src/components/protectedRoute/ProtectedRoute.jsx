@@ -12,8 +12,6 @@ export default function ProtectedRoute({
   }
 
   return (
-    console.log(isAuthenticated),
-    
     children
   );
 }

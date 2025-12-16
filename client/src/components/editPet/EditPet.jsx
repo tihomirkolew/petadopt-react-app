@@ -102,7 +102,7 @@ export default function EditPet() {
                 <h2 className="tm-text-primary pt-5 mb-5 text-center">
                     Edit {pet?.name}'s Listing
                 </h2>
-                <form onSubmit={editPetHandler} id="add-pet-form" action="" method="POST" className="tm-contact-form mx-auto">
+                <form onSubmit={editPetHandler} id="add-pet-form" action="" method="POST" className="tm-contact-form mx-auto" noValidate>
                     <div className="form-group">
                         <input
                             type="text"
