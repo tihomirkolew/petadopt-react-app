@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import UserContext from "../contexts/UserContext";
+import { useEffect, useState } from "react";
+import { useUserContext } from "../contexts/UserContext";
 
 
 export default function usePetRequest(url) {
 
-    const { user, isAuthenticated } = useContext(UserContext);
+    const { user, isAuthenticated } = useUserContext()
     const [fetchedData, setFetchedData] = useState([]);
 
     const getData = async () => {

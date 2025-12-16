@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router";
-import UserContext from "../../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 import usePetRequest from "../../hooks/usePetRequest";
 
 export default function Details() {
-    const { user } = useContext(UserContext);
+    const { user } = useUserContext();
     const { petId } = useParams();
 
     const navigate = useNavigate();
