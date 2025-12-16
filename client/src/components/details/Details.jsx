@@ -122,7 +122,7 @@ export default function Details() {
                                         <i className={`fas fa-heart ${hasLiked ? 'text-light' : ''}`}></i> {petLikes.length}
                                     </button>
                                 </div>
-                                {user?._id === pet?._ownerId && (
+                                {user && user?._id === pet?._ownerId && (
                                     <>
                                         <Link
                                             to={`/pets/${petId}/edit`}
