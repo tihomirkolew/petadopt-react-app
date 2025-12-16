@@ -1,11 +1,10 @@
 import PetCard from "../petCard/PetCard";
 import usePetRequest from "../../hooks/usePetRequest";
-import { useContext } from "react";
-import UserContext from "../../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 
 export default function UserPets() {
 
-    const { user } = useContext(UserContext);
+    const { user } = useUserContext();
 
     const params = new URLSearchParams({
         where: `_ownerId="${user._id}"`

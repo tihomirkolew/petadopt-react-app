@@ -1,45 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import UserContext from "../../contexts/UserContext";
+import UserContext, { useUserContext } from "../../contexts/UserContext";
 import usePetRequest from "../../hooks/usePetRequest";
+import useForm from "../../hooks/useForm";
 
 export default function EditPet() {
     const navigate = useNavigate();
+    const { isAuthenticated } = useUserContext();
     const { petId } = useParams();
-
-    const [values, setValues] = useState({
-        name: '',
-        age: '',
-        kind: '',
-        contact: '',
-        description: '',
-        imageUrl: ''
-    });
-
-    const [errors, setErrors] = useState({});
 
     const { fetchedData: pet, request: petRequest } =
         usePetRequest(`http://localhost:3030/data/pets/${petId}`);
-
-    useEffect(() => {
-        if (pet) {
-            setValues({
-                name: pet.name || '',
-                age: pet.age || '',
-                kind: pet.kind || '',
-                contact: pet.contact || '',
-                description: pet.description || '',
-                imageUrl: pet.imageUrl || ''
-            });
-        }
-    }, [pet]);
-
-    const onChange = (e) => {
-        setValues(state => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }));
-    };
 
     const validate = (values) => {
         const errors = {};
@@ -76,25 +47,44 @@ export default function EditPet() {
         return errors;
     };
 
-    const editPetHandler = async (e) => {
-        e.preventDefault();
-
-        const validationErrors = validate(values);
-
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
+    const onSubmit = async (values) => {
+        if (!isAuthenticated) {
+            navigate('/login')
+            return
         }
-
-        setErrors({});
 
         await petRequest('PUT', {
             ...pet,
-            ...values,
+            ...values
         });
-
         navigate(`/pets/${petId}/details`);
     };
+
+    const { values, errors, changeHandler, submitHandler, setValues } = useForm(
+        {
+            name: '',
+            age: '',
+            kind: '',
+            description: '',
+            imageUrl: '',
+            contact: ''
+        },
+        validate,
+        onSubmit        
+    );
+
+    useEffect(() => {
+        if (pet) {
+            setValues({
+                name: pet.name || '',
+                age: pet.age || '',
+                kind: pet.kind || '',
+                contact: pet.contact || '',
+                description: pet.description || '',
+                imageUrl: pet.imageUrl || ''
+            });
+        }
+    }, [pet, setValues]);
 
     return (
         <>
@@ -102,7 +92,7 @@ export default function EditPet() {
                 <h2 className="tm-text-primary pt-5 mb-5 text-center">
                     Edit {pet?.name}'s Listing
                 </h2>
-                <form onSubmit={editPetHandler} id="add-pet-form" action="" method="POST" className="tm-contact-form mx-auto" noValidate>
+                <form onSubmit={submitHandler} id="add-pet-form" action="" method="POST" className="tm-contact-form mx-auto" noValidate>
                     <div className="form-group">
                         <input
                             type="text"
@@ -110,7 +100,7 @@ export default function EditPet() {
                             className="form-control rounded-0"
                             placeholder="Pet Name"
                             value={values.name}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.name && <p className="text-danger">{errors.name}</p>}
                     </div>
@@ -121,7 +111,7 @@ export default function EditPet() {
                             className="form-control rounded-0"
                             placeholder="Age (in years)"
                             value={values.age}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.age && <p className="text-danger">{errors.age}</p>}
                     </div>
@@ -131,7 +121,7 @@ export default function EditPet() {
                             className="form-control rounded-0"
                             placeholder="Kind"
                             value={values.kind}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.kind && <p className="text-danger">{errors.kind}</p>}
                     </div>
@@ -141,7 +131,7 @@ export default function EditPet() {
                             name="contact"
                             className="form-control rounded-0"
                             value={values.contact}
-                            onChange={onChange}
+                            onChange={changeHandler}
                             placeholder="0888.../email"
                         />
                         {errors.contact && <p className="text-danger">{errors.contact}</p>}
@@ -153,7 +143,7 @@ export default function EditPet() {
                             className="form-control rounded-0"
                             placeholder="Short Description"
                             value={values.description}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.description && (
                             <p className="text-danger">{errors.description}</p>
@@ -166,7 +156,7 @@ export default function EditPet() {
                             className="form-control rounded-0"
                             placeholder="Image URL"
                             value={values.imageUrl}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.imageUrl && <p className="text-danger">{errors.imageUrl}</p>}
                     </div>

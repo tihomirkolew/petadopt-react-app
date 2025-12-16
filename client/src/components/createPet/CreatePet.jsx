@@ -1,29 +1,12 @@
 import { useNavigate } from "react-router";
-import UserContext from "../../contexts/UserContext";
+import UserContext, { useUserContext } from "../../contexts/UserContext";
 import usePetRequest from "../../hooks/usePetRequest";
-import { useState } from "react";
+import useForm from "../../hooks/useForm";
 
 export default function CreatePet() {
     const navigate = useNavigate();
+    const { isAuthenticated } = useUserContext();
     const { request } = usePetRequest(`http://localhost:3030/data/pets`);
-
-    const [values, setValues] = useState({
-        name: '',
-        age: '',
-        kind: '',
-        description: '',
-        imageUrl: '',
-        contact: ''
-    });
-
-    const [errors, setErrors] = useState({});
-
-    const onChange = (e) => {
-        setValues(state => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }));
-    };
 
     const validate = (values) => {
         const errors = {};
@@ -60,13 +43,9 @@ export default function CreatePet() {
         return errors;
     };
 
-    const createPetHandler = async (e) => {
-        e.preventDefault();
-
-        const validationErrors = validate(values);
-
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
+    const onSubmit = async (values) => {
+        if (!isAuthenticated) {
+            navigate('/login');
             return;
         }
 
@@ -74,15 +53,34 @@ export default function CreatePet() {
             ...values,
             _createdOn: Date.now()
         });
-
         navigate('/catalog');
-    }
+    };
+
+    const { values, errors, changeHandler, submitHandler } = useForm(
+        {
+            name: '',
+            age: '',
+            kind: '',
+            description: '',
+            imageUrl: '',
+            contact: ''
+        },
+        validate,
+        onSubmit
+    );
 
     return (
         <>
             <div className="col-lg-6 col-12 mb-5 mx-auto" style={{ minHeight: '74vh' }}>
                 <h2 className="tm-text-primary pt-5 mb-5 text-center">Add Pet Listing</h2>
-                <form id="add-pet-form" action="" method="POST" className="tm-contact-form mx-auto" onSubmit={createPetHandler} noValidate>
+                <form
+                    id="add-pet-form"
+                    action=""
+                    method="POST"
+                    className="tm-contact-form mx-auto"
+                    onSubmit={submitHandler}
+                    noValidate
+                >
                     <div className="form-group">
                         <input
                             type="text"
@@ -90,7 +88,7 @@ export default function CreatePet() {
                             className="form-control rounded-0"
                             placeholder="Pet Name"
                             value={values.name}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.name && <p className="text-danger">{errors.name}</p>}
                     </div>
@@ -101,7 +99,7 @@ export default function CreatePet() {
                             className="form-control rounded-0"
                             placeholder="Age (in years)"
                             value={values.age}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.age && <p className="text-danger">{errors.age}</p>}
                     </div>
@@ -111,7 +109,7 @@ export default function CreatePet() {
                             className="form-control rounded-0"
                             placeholder="Kind"
                             value={values.kind}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.kind && <p className="text-danger">{errors.kind}</p>}
                     </div>
@@ -122,9 +120,9 @@ export default function CreatePet() {
                             className="form-control rounded-0"
                             placeholder="0888.../email"
                             value={values.contact}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
-                        {errors.kind && <p className="text-danger">{errors.kind}</p>}
+                        {errors.contact && <p className="text-danger">{errors.contact}</p>}
                     </div>
                     <div className="form-group">
                         <textarea
@@ -133,10 +131,10 @@ export default function CreatePet() {
                             className="form-control rounded-0"
                             placeholder="Short Description"
                             value={values.description}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.description && <p className="text-danger">{errors.description}</p>}
-                    
+
                     </div>
                     <div className="form-group">
                         <input
@@ -145,8 +143,8 @@ export default function CreatePet() {
                             className="form-control rounded-0"
                             placeholder="Image URL"
                             value={values.imageUrl}
-                            onChange={onChange}
-                        />                        
+                            onChange={changeHandler}
+                        />
                         {errors.imageUrl && <p className="text-danger">{errors.imageUrl}</p>}
                     </div>
                     <div className="form-group text-center">

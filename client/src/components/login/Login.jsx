@@ -1,31 +1,10 @@
 import { useNavigate } from "react-router";
 import { useUserContext } from "../../contexts/UserContext";
-import { useState } from "react";
+import useForm from "../../hooks/useForm";
 
 export default function Login() {
     const { loginHandler } = useUserContext();
     const navigate = useNavigate();
-
-    const [values, setValues] = useState({
-        email: '',
-        password: ''
-    });
-
-    const [errors, setErrors] = useState({});
-
-    const onChange = (e) => {
-        setValues(state => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }));
-
-        if (errors[e.target.name]) {
-            setErrors(previousErrors => ({
-                ...previousErrors,
-                [e.target.name]: undefined
-            }));
-        }
-    };
 
     const validate = (values) => {
         const errors = {};
@@ -35,38 +14,32 @@ export default function Login() {
             errors.email = 'Enter valid email';
         }
 
-        if (values.password.length < 6) {
-            errors.password = 'Password must be at least 6 characters';
-        }
-
         return errors;
-    }
+    };
 
-    const loginSubmitHandler = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (values) => {
+        await loginHandler(values.email, values.password);
+        navigate('/')
+    };
 
-        const validationErrors = validate(values);
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
-        }
-
-        setErrors({});
-
-        try {
-            await loginHandler(values.email, values.password);
-            navigate('/');
-        } catch (err) {
-            setErrors({ general: err.message });
-        }
-    }
-
+    const { values, errors, changeHandler, submitHandler } = useForm(
+        { email: '', password: '' },
+        validate,
+        onSubmit
+    );
 
     return (
         <>
             <div className="col-lg-4 col-12 mb-5 mx-auto" style={{ minHeight: '74vh' }}>
                 <h2 className="tm-text-primary pt-5 mb-5 text-center">Login</h2>
-                <form id="login-form" action="" method="POST" className="tm-contact-form mx-auto" onSubmit={loginSubmitHandler} noValidate>
+                <form
+                    id="login-form"
+                    action=""
+                    method="POST"
+                    className="tm-contact-form mx-auto"
+                    onSubmit={submitHandler}
+                    noValidate
+                >
                     <div className="form-group">
                         <input
                             type="email"
@@ -74,7 +47,7 @@ export default function Login() {
                             className="form-control rounded-0"
                             placeholder="Email"
                             value={values.email}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.email && <p className="text-danger">{errors.email}</p>}
                     </div>
@@ -86,7 +59,7 @@ export default function Login() {
                             placeholder="Password"
                             autoComplete="off"
                             value={values.password}
-                            onChange={onChange}
+                            onChange={changeHandler}
                         />
                         {errors.password && <p className="text-danger">{errors.password}</p>}
                     </div>
