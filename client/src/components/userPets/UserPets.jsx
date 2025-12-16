@@ -49,8 +49,3 @@ export default function UserPets() {
         </>
     );
 }
-
-
-// const params = new URLSearchParams({
-//         where: `_ownerId="${user._id}"`
-//     });

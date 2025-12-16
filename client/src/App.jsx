@@ -9,9 +9,9 @@ import Register from "./components/register/Register";
 import Logout from "./components/logout/Logout";
 import Details from "./components/details/Details";
 import EditPet from "./components/editPet/EditPet";
-import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
-import UserContext from "./contexts/UserContext";
 import UserPets from "./components/userPets/UserPets";
+import GuestRoute from "./components/protectedRoutes/GuestRoute";
+import ProtectedRoute from "./components/protectedRoutes/ProtectedRoute";
 
 function App() {
 
@@ -26,13 +26,17 @@ function App() {
                 {/* pet details */}
                 <Route path="/pets/:petId/details" element={<Details />} />
                 {/* pet edit */}
-                <Route path="/pets/:petId/edit" element={<ProtectedRoute> <EditPet/> </ProtectedRoute>} />
-                <Route path="/pets/create" element={<ProtectedRoute> <CreatePet /> </ProtectedRoute>} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route element={<ProtectedRoute />}>
+                    <Route path="/pets/:petId/edit" element={<EditPet />} />
+                    <Route path="/pets/create" element={<CreatePet />} />
+                </Route>
+                <Route element={<GuestRoute />}>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                </Route>
                 <Route path="/logout" element={<Logout />} />
-                
-            </Routes>
+
+            </Routes >
             <Footer />
         </>
     )
