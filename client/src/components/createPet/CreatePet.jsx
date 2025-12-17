@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router";
-import UserContext, { useUserContext } from "../../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 import usePetRequest from "../../hooks/usePetRequest";
 import useForm from "../../hooks/useForm";
+import styles from './CreatePet.module.css'
 
 export default function CreatePet() {
     const navigate = useNavigate();
@@ -71,7 +72,7 @@ export default function CreatePet() {
 
     return (
         <>
-            <div className="col-lg-6 col-12 mb-5 mx-auto" style={{ minHeight: '74vh' }}>
+            <div className={`col-lg-6 col-12 mx-auto ${styles.height}`}>
                 <h2 className="tm-text-primary pt-5 mb-5 text-center">Add Pet Listing</h2>
                 <form
                     id="add-pet-form"
