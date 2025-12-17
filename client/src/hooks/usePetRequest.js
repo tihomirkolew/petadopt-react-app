@@ -7,24 +7,35 @@ export default function usePetRequest(url) {
     const { user, isAuthenticated } = useUserContext()
     const [fetchedData, setFetchedData] = useState([]);
 
-    const getData = async () => {
-        let data = [];
 
-        await fetch(url)
-            .then(res => res.json())
-            .then(result => {
-                data = result;
-            })
-            .catch(err => {
-                console.error('Error fetching data:', err);
-            });
+    useEffect(() => {
+        if (!url) return;
 
-        return data;
-    }
+        const controller = new AbortController();
+
+        const getData = async () => {
+            try {
+                const response = await fetch(url, { signal: controller.signal });
+                const result = await response.json();
+                setFetchedData(result)
+            } catch (err) {
+                if (err.name === "AbortError") {
+                    return;
+                }
+                console.error("error fetching data:", err)
+            } 
+        };
+
+        getData();
+
+        return () => {
+            controller.abort();
+            console.log(`Cleanup ${url}`);
+        };
+    }, [url])
 
     const request = async (method, data, additionalUrl) => {
         let settings = {};
-
         let currentUrl = url;
 
         if (additionalUrl) {
@@ -36,7 +47,6 @@ export default function usePetRequest(url) {
         }
 
         if (data) {
-            
             settings.headers = {
                 'Content-Type': 'application/json',
             }
@@ -65,17 +75,8 @@ export default function usePetRequest(url) {
         }
     }
 
-    useEffect(() => {
-        if (!url) return;
-
-        getData(url)
-            .then(data => setFetchedData(data))
-            .catch(err => console.error('Error fetching data:', err));
-    }, [url]);
-
     return {
         fetchedData,
-        getData,
         request
     }
 }
