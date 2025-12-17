@@ -28,6 +28,10 @@ export default function CreatePet() {
             errors.description = 'Description must be at least 10 characters';
         }
 
+        if (values.description.trim().length > 700) {
+            errors.description = 'Description too long'
+        }
+
         try {
             new URL(values.imageUrl);
         } catch {

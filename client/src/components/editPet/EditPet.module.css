@@ -1,0 +1,13 @@
+.height {
+    min-height: 74vh;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+}
+
+.textarea-height {
+    resize: none;
+    height: 160px;
+    flex: 1;
+}

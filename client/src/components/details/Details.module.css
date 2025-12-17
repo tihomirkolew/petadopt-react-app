@@ -29,3 +29,12 @@
     max-height: 278px;
     overflow-y: auto;
 }
+
+.description::-webkit-scrollbar {
+    width: 6px;
+}
+
+.description::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}

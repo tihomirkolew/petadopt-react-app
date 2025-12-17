@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import UserContext, { useUserContext } from "../../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 import usePetRequest from "../../hooks/usePetRequest";
 import useForm from "../../hooks/useForm";
+import styles from './EditPet.module.css';
 
 export default function EditPet() {
     const navigate = useNavigate();
@@ -92,8 +93,8 @@ export default function EditPet() {
 
     return (
         <>
-            <div className="col-lg-6 col-12 mb-5 mx-auto" style={{ minHeight: '74vh' }}>
-                <h2 className="tm-text-primary pt-5 mb-5 text-center">
+            <div className={`col-lg-6 col-12 mb-5 mx-auto ${styles.height}`}>
+                <h2 className="tm-text-primary pt-5 text-center">
                     Edit {pet?.name}'s Listing
                 </h2>
                 <form onSubmit={submitHandler} id="add-pet-form" action="" method="POST" className="tm-contact-form mx-auto" noValidate>
@@ -144,7 +145,7 @@ export default function EditPet() {
                         <textarea
                             name="description"
                             rows="5"
-                            className="form-control rounded-0"
+                            className={`form-control rounded-0 ${styles["textarea-height"]}`}
                             placeholder="Short Description"
                             value={values.description}
                             onChange={changeHandler}
