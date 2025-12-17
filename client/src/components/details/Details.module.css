@@ -1,0 +1,31 @@
+.height {
+    min-height: 75vh;
+    flex-basis: 1 0 0;
+}
+
+.smaller-images {
+    width: 93%;
+    height: auto;
+}
+
+.info {
+    max-height: 670px;
+}
+
+.details-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1;
+}
+
+.description {
+    flex: 1;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    max-height: 278px;
+    overflow-y: auto;
+}
