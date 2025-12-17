@@ -4,61 +4,6 @@ TemplateMo 556 Catalog-Z
 https://templatemo.com/tm-556-catalog-z
 */
 
-/* My styles - start */
-.navbar {
-    background-color: #EEEEEE;
-}
-
-.navbar-brand i {
-    margin-top: 5px;
-}
-
-.img-fluid {
-    aspect-ratio: 16/10;
-}
-
-.zoom-effect {
-    flex: 0 0 45%;
-    max-width: 45%;
-}
-
-.btr-image img {
-    width: 120%;
-    height: auto;
-    padding: 0;
-}
-
-.zoom-effect {
-    font-size: 1.5rem;
-}
-
-@media (max-width: 768px) {
-    .tm-gallery {
-        flex-direction: column;
-        flex-wrap: nowrap;
-        overflow-x: unset;
-    }
-
-    .zoom-effect {
-        max-width: 100%;
-        flex: 1 1 auto;
-    }
-
-    .zoom-effect img {
-        width: 100%;
-    }
-}
-
-.max-h-48 {
-    max-height: 48px;
-}
-
-.tm-footer-title {
-    line-height: 2;
-}
-
-/* My styles - end */
-
 #loader-wrapper {
     position: fixed;
     top: 0;
@@ -274,8 +219,10 @@ a:hover {
 }
 
 .btn-outline-primary {
-    background-color: #fff;   /* inverted: white background */
-    color: #009999;           /* teal text */
+    background-color: #fff;
+    /* inverted: white background */
+    color: #009999;
+    /* teal text */
     border: 2px solid #009999;
     border-radius: 5px;
     padding: 10px 50px 14px;
@@ -283,7 +230,7 @@ a:hover {
 }
 
 .btn-primary-delete {
-    background-color:#FF6666 ;
+    background-color: #FF6666;
     padding: 10px 40px 14px;
 }
 
@@ -301,7 +248,7 @@ a:hover {
 
 .btn-primary-delete:hover,
 .btn-primary-delete:focus {
-    background-color:#ff2727 ;
+    background-color: #ff2727;
 }
 
 .form-control {
@@ -344,6 +291,10 @@ a:hover {
 
 .tm-mt-40 {
     margin-top: 40px;
+}
+
+.tm-mb-40 {
+    margin-bottom: 40px;
 }
 
 .tm-mb-50 {

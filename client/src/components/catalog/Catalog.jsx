@@ -11,7 +11,7 @@ export default function Catalog() {
         <>
             <div className={`${styles["tm-container-content"]}`}>
                 {/* Page title */}
-                <div className="row mb-4">
+                <div className="row">
                     <h2 className="col-6 tm-text-primary">
                         All Listings
                         <p>Oldest listings first</p>
@@ -19,7 +19,7 @@ export default function Catalog() {
                 </div>
 
                 {/* Items */}
-                <div className={`row tm-mb-90 ${styles["tm-gallery"]}`}>
+                <div className={`row tm-mb-40 ${styles["tm-gallery"]}`}>
                     {pets.length > 0 ? (
                         pets.map(pet => <PetCard key={pet._id} {...pet} />)
                     ) : (

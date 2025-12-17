@@ -1,5 +1,6 @@
 import PetCard from "../petCard/PetCard";
 import usePetRequest from "../../hooks/usePetRequest";
+import styles from './Home.module.css'
 
 export default function Home() {
     const searchParams = encodeURIComponent('_createdOn desc');
@@ -8,8 +9,7 @@ export default function Home() {
 
     return (
         <>
-            <div className="container-fluid tm-container-content tm-mt-60"
-                style={{ minHeight: '73vh' }}>
+            <div className={`container-fluid tm-container-content tm-mt-60 ${styles.height}`}>
                 {/* Page title */}
                 <div className="row mb-4">
                     <h2 className="col-6 tm-text-primary">
@@ -18,19 +18,13 @@ export default function Home() {
                 </div>
 
                 {/* Items */}
-                <div className="row tm-mb-90 tm-gallery" style={{
-                    display: "flex",
-                    flexWrap: "nowrap",
-                    overflowX: "auto",
-                    gap: "1rem"
-                }}>
+                <div className={`row tm-mb-90 tm-gallery ${styles["pet-container"]}`}>
                     {latestPets.map(pet =>
                         <PetCard
                             key={pet._id}
                             {...pet}
-                            zoomEffect="zoom-effect"
+                            zoomEffect={`${styles["zoom-effect"]}`}
                         />)}
-
                 </div>
             </div>
         </>

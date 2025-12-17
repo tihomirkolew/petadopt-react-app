@@ -1,16 +1,17 @@
 import { Link } from "react-router";
 import { useUserContext } from "../../contexts/UserContext";
+import styles from './Header.module.css';
 
 export default function Header() {
     const { user, isAuthenticated } = useUserContext()
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg">
+            <nav className={`navbar navbar-expand-lg ${styles.background}`}>
                 <div className="container-fluid">
                     {/* Home */}
                     <Link className="navbar-brand" to="/">
-                        <i className="fas fa-film mr-2"></i>
+                        <i className={`fas fa-film mr-2 ${styles["navbar-icon"]}`}></i>
                         Pet Adopt
                     </Link>
 
@@ -30,7 +31,7 @@ export default function Header() {
                             )}
                             {isAuthenticated && (
                                 <li className="nav-item">
-                                    <Link className="nav-link nav-link-3" to={`${user._id}/user-pets`}>My listings</Link>
+                                    <Link className="nav-link nav-link-3" to={`/user-pets`}>My listings</Link>
                                 </li>
                             )}
 

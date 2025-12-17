@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import styles from './PetCard.module.css'
 
 export default function PetCard({
     _id,
@@ -15,12 +16,12 @@ export default function PetCard({
 
     return (
         <>
-            <div className={`col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 mb-5 btr-image ${zoomEffect || ""}`}>
+            <div className={`col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 mb-5 ${styles["btr-image"]} ${zoomEffect || ""}`}>
                 <figure className="effect-ming tm-video-item">
                     <img
                         src={imageUrl || "/images/image-placeholder.png"}
                         alt={name}
-                        className="img-fluid"
+                        className={`${styles["img-fluid"]}`}
                     />
                     <figcaption className="d-flex align-items-center justify-content-center">
                         <h2 className="col-6 tm-text-primary">{name}</h2>
@@ -29,7 +30,6 @@ export default function PetCard({
                 </figure>
                 <div className="d-flex justify-content-between tm-text-gray">
                     <span className="tm-text-gray-light">{createdDate}</span>
-                    {/* <span>9,906 views</span> */}
                 </div>
             </div>
         </>

@@ -94,7 +94,7 @@ export default function Details() {
                     <div className="col-xl-8 col-lg-7 col-md-6 col-sm-12">
                         <img src={pet.imageUrl || "/images/image-placeholder.png"}
                             alt="Image"
-                            className={`img-fluid ${styles["smaller-images"]}`}
+                            className={`${styles["smaller-images"]}`}
                             // style={{ width: '93%', height: 'auto' }}
                         />
                     </div>

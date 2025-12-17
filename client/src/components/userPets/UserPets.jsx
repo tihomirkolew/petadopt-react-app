@@ -1,6 +1,7 @@
 import PetCard from "../petCard/PetCard";
 import usePetRequest from "../../hooks/usePetRequest";
 import { useUserContext } from "../../contexts/UserContext";
+import styles from './UserPets.module.css';
 
 export default function UserPets() {
 
@@ -10,7 +11,7 @@ export default function UserPets() {
         where: `_ownerId="${user._id}"`
     });
 
-    const { fetchedData: pets } = usePetRequest(`http://localhost:3030/data/pets?${params}`);
+    const { fetchedData: pets } = usePetRequest(`http://localhost:3030/data/pets?${params.toString()}`);
 
     return (
         <>
@@ -24,24 +25,18 @@ export default function UserPets() {
                 <div className="row mb-4">
                     <h2 className="col-6 tm-text-primary">
                         All Listings
-                        <p
-                            style={{ fontSize: '9px', margin: '0', padding: '0' }}
-                        >
+                        <p>
                             Oldest listings first
                         </p>
                     </h2>
                 </div>
 
                 {/* Items */}
-                <div className="row tm-mb-90 tm-gallery" style={{
-                    display: "flex",
-                    overflowY: "scroll",
-                    maxHeight: "64vh",
-                }}>
+                <div className={`row tm-mb-90 tm-gallery ${styles["tm-gallery"]}`}>
                     {pets.length > 0 ? (
                         pets.map(pet => <PetCard key={pet._id} {...pet} />)
                     ) : (
-                        <p>No pets found.</p>
+                        <h3>You currently don't have any listings posted.</h3>
                     )}
                 </div>
             </div>

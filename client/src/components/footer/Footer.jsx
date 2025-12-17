@@ -1,10 +1,12 @@
+import styles from './Footer.module.css';
+
 export default function Footer() {
     return (
         <footer className="tm-bg-gray pt-4 pb-2 tm-text-gray tm-footer">
             <div className="container-fluid">
                 <div className="row align-items-center">
                     <div className="col-lg-6 col-md-12 px-5 mb-3 mb-lg-0">
-                        <h3 className="tm-text-primary tm-footer-title">
+                        <h3 className={`tm-text-primary tm-footer-title ${styles.lineheight}`}>
                             🌍 Together, we make tails wag.
                         </h3>
                     </div>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useUserContext } from "../../contexts/UserContext";
 import useForm from "../../hooks/useForm";
+import styles from './Login.module.css';
 
 export default function Login() {
     const { loginHandler } = useUserContext();
@@ -30,7 +31,8 @@ export default function Login() {
 
     return (
         <>
-            <div className="col-lg-4 col-12 mb-5 mx-auto" style={{ minHeight: '74vh' }}>
+            <div className={`col-lg-4 col-12 mb-5 mx-auto ${styles.height}`}
+            >
                 <h2 className="tm-text-primary pt-5 mb-5 text-center">Login</h2>
                 <form
                     id="login-form"

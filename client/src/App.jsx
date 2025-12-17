@@ -9,9 +9,9 @@ import Register from "./components/register/Register";
 import Logout from "./components/logout/Logout";
 import Details from "./components/details/Details";
 import EditPet from "./components/editPet/EditPet";
-import UserPets from "./components/userPets/UserPets";
 import GuestRoute from "./components/protectedRoutes/GuestRoute";
 import ProtectedRoute from "./components/protectedRoutes/ProtectedRoute";
+import UserPets from "./components/userPets/UserPets";
 
 function App() {
 
@@ -22,7 +22,9 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/catalog" element={<Catalog />} />
-                <Route path="/:userId/user-pets" element={<ProtectedRoute> <UserPets /> </ProtectedRoute>} />
+                <Route element={<ProtectedRoute />}>
+                    <Route path="/user-pets" element={<UserPets />} />
+                </Route>
                 {/* pet details */}
                 <Route path="/pets/:petId/details" element={<Details />} />
                 {/* pet edit */}

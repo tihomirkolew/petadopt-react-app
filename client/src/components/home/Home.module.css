@@ -1,0 +1,36 @@
+.height {
+    min-height: 73vh;
+}
+
+.pet-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 1rem;
+}
+
+.zoom-effect {
+    flex: 0 0 45%;
+    max-width: 45%;
+}
+
+.zoom-effect {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .tm-gallery {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        overflow-x: unset;
+    }
+
+    .zoom-effect {
+        max-width: 100%;
+        flex: 1 1 auto;
+    }
+
+    .zoom-effect img {
+        width: 100%;
+    }
+}

@@ -1,0 +1,9 @@
+.btr-image img {
+    width: 120%;
+    height: auto;
+    padding: 0;
+}
+
+.img-fluid {
+    aspect-ratio: 16/10;
+}

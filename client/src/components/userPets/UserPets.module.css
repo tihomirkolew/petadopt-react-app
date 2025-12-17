@@ -1,8 +1,3 @@
-.tm-container-content {
-    height: 72vh;
-    margin: 34px 60px 34px 60px;
-}
-
 h2 p {
     font-size: 9px;
     margin: 0;
@@ -13,4 +8,8 @@ h2 p {
     display: flex;
     overflow-y: auto;
     max-height: 64vh;
+}
+
+h3 {
+    color: #999;
 }
